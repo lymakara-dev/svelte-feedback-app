@@ -8,10 +8,11 @@
     const onChange = (e) => {
         selected = e.currentTarget.value
         dispatch('rating-select', selected)
+        console.log(e.currentTarget.value)
     }
 </script>
 
-<ul class="rating">
+<!-- <ul class="rating">
     <li>
         <input type="radio" id="num1" name="rating" value="1" on:change={onChange} checked={selected === 1}>
         <label for="num1">1</label>
@@ -52,7 +53,24 @@
         <input type="radio" id="num10" name="rating" value="10" on:change={onChange} checked={selected === 10}>
         <label for="num1">10</label>
     </li>
-</ul>
+</ul> -->
+
+<ul class="rating">
+    {#each Array(10) as _, i}
+      <li>
+        <input
+          type="radio"
+          id={`num${i + 1}`}
+          name="rating"
+          value={i + 1}
+          on:change={onChange}
+          checked={selected === i + 1}
+        />
+        <label for={`num${i + 1}`}>{i + 1}</label>
+      </li>
+    {/each}
+  </ul>
+  
 
 <style>
     .rating {
@@ -98,7 +116,7 @@
     }
 
     /* Use vibling select */
-    [type='radio']:checked ~ label{
+    [type='radio']:checked + label {
         background: #ff6a95;
         color: #fff;
     }
